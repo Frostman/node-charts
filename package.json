@@ -1,0 +1,9 @@
+{
+    "name":"node-charts",
+    "version":"0.0.1",
+    "node":"0.8.2",
+    "author":"slukjanov aka Frostman",
+    "dependencies":{
+        "express":"2.5.x"
+    }
+}
