@@ -5,6 +5,7 @@
     "author":"slukjanov aka Frostman",
     "dependencies":{
         "express":"2.5.11",
-        "jsdom":"0.2.15"
+        "jsdom":"0.2.15",
+        "commander":"1.0.0"
     }
 }

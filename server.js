@@ -1,12 +1,29 @@
-var express = require('express');
-var app = express.createServer(
-        express.logger(),
-        express.bodyParser()
-);
-var charts = require("./charts.js");
-var supportedChartLibs = ["highcharts"];
+var charts = require("./charts.js"),
+        express = require('express'),
+        supportedChartLibs = ["highcharts"];
+
+// handle command line args
+var args = require('commander');
+args
+        .option('--debug', 'Debug')
+        .option('-p, --port <port>', 'Port to listen', 3000)
+        .version('0.0.1');
+args.parse(process.argv);
+
+process.on('uncaughtException', function (e) {
+    console.error(e.message);
+    console.error(e.stack);
+});
+
+var app = express.createServer(express.bodyParser());
+if (args.debug) {
+    app.use(express.logger());
+}
 
 function handleChartReq(req, res) {
+    if (args.debug) {
+        req.start_time = new Date().getTime();
+    }
     var chartLib = req.params.chartLib;
     var chartOptions = req.params.chartOptions || req.body.chartOptions;
 
@@ -20,6 +37,9 @@ function handleChartReq(req, res) {
             res.statusCode = 500;
             res.end("Error occurred: " + err);
         } else {
+            if (args.debug) {
+                console.log("Chart generation takes: " + (new Date().getTime() - req.start_time) / 1000 + "ms")
+            }
             res.writeHead(200, {'Content-Type':'image/svg+xml'});
             res.end(svg);
         }
@@ -31,6 +51,7 @@ function handleChartReq(req, res) {
         return resultSvgCallback()
     }
 
+    // default chart
     if (!chartOptions || !chartOptions.series) {
         chartOptions = {
             chart:{
