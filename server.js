@@ -127,5 +127,5 @@ function handleChartReq(req, res) {
 app.get('/chart/:chartLib/:chartOptions', handleChartReq);
 app.post("/chart/:chartLib", handleChartReq);
 
-//todo extract port to args
-app.listen(3000);
+console.log("node-charts listen on port " + args.port);
+app.listen(args.port);
