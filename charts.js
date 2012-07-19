@@ -46,6 +46,8 @@ function renderHighcharts(options, callback) {
     options.exporting = options.exporting || {};
     options.exporting.enabled = false;
 
+    options.credits = options.credits || {};
+
     options.series = options.series || [];
     options.series.forEach(function (series) {
         series.animation = false;
