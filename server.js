@@ -89,7 +89,7 @@ if (args.workers > 1 && cluster.isMaster) {
         try {
             chartOptions = JSON.parse(chartOptions);
         } catch (e) {
-            return resultSvgCallback()
+            return resultSvgCallback(e, null)
         }
 
         // default chart

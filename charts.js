@@ -89,7 +89,8 @@ function renderHighcharts(options, callback) {
                 var $ = window.jQuery;
                 var highcharts = window.Highcharts;
                 var document = window.document;
-                var container = $('<div id="container" />');
+                //todo extract width to args
+                var container = $("<div id='container' style='overflow: hidden; width: 940px; height: 400px; text-align: left; line-height: normal; font-family: \"Lucida Grande\", \"Lucida Sans Unicode\", Verdana, Arial, Helvetica, sans-serif; font-size: 11px; cursor: auto;'/>");
                 container.appendTo(document.body);
                 new highcharts.Chart(options);
 
